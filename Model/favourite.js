@@ -1,25 +1,10 @@
-const fs = require("fs");
-const path = require("path");
-const rootDir = require("../utils/pathutil");
-
-const favouriteDataPath = path.join(rootDir, "data", "favourite.json");
-
-module.exports = class Favourite {
-
-  static addToFavourite(homeId, callback) {
-    Favourite.getFavourites((favourites) => {
-      if (favourites.includes(homeId)) {
-        callback("Home is already marked favourite");
-      } else {
-        favourites.push(homeId);
-        fs.writeFile(favouriteDataPath, JSON.stringify(favourites),callback);
-      }
-    });
+const mongoose=require('mongoose');
+const favouriteSchema=mongoose.Schema({
+  houseId:{
+    type:mongoose.Schema.Types.ObjectId,
+    ref:'Home',
+    required:true,
+    unique:true
   }
-
-  static getFavourites(callback) {
-    fs.readFile(favouriteDataPath, (err, data) => {
-      callback(!err ? JSON.parse(data) : []);
-    });
-  }
-}
+})
+module.exports=mongoose.model('Favourite',favouriteSchema)
