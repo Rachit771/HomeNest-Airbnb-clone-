@@ -3,7 +3,7 @@ const path = require('path');
 
 // External Module
 const express = require('express');
-
+const cookieParser = require('cookie-parser');
 //Local Module
 const storeRouter = require("./routes/storeRouter")
 const hostRouter = require("./routes/hostRouter")
@@ -18,10 +18,22 @@ app.set('view engine', 'ejs');
 app.set('views', 'views');
 
 app.use(express.urlencoded({extended: true}));
-
 app.use(express.static(path.join(rootDir, 'public')))
-app.use(storeRouter);
+app.use(cookieParser());
+app.use((req, res, next) => {
+  req.isLoggedIn = req.cookies.isLoggedIn === 'true';
+  console.log('Parsed isLoggedIn:', req.isLoggedIn);
+  next();
+});
 
+app.use(authRouter);
+app.use(storeRouter);
+app.use("/host",(req,res,next)=>{
+  if(req.isLoggedIn){
+    next();
+  }
+  res.redirect("/login");
+})
 app.use("/host", hostRouter);
 
 app.use(errorcontroller.pageNotFound)

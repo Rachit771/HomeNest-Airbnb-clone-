@@ -6,7 +6,7 @@ exports.getIndex = (req, res, next) => {
       registeredHomes: registeredHomes,
       pageTitle: "airbnb Home",
       currentPage: "index",
-      isLoggedIn:req.isLoggedIn
+      isLoggedIn:req.isLoggedIn,
     })
   );
 };
@@ -38,6 +38,7 @@ exports.getFavouriteList = (req, res, next) => {
       favouriteHomes: favouriteHomes,
       pageTitle: "My Favourites",
       currentPage: "favourites",
+      isLoggedIn:req.isLoggedIn
     });
   });
 
