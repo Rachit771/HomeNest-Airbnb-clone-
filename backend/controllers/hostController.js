@@ -5,7 +5,8 @@ exports.getAddHome = (req, res, next) => {
     editing:false,
     pageTitle: "Add Home to airbnb",
     currentPage: "addHome",
-    isLoggedIn:req.isLoggedIn
+    isLoggedIn:req.isLoggedIn,
+    user: req.session.user,
   });
 };
 exports.getEditHome = (req, res, next) => {
@@ -22,7 +23,8 @@ exports.getEditHome = (req, res, next) => {
     home:home,
     pageTitle: "Edit your Home",
     currentPage: "host-homes",
-    isLoggedIn:req.isLoggedIn
+    isLoggedIn:req.isLoggedIn,
+    user: req.session.user,
   })
   })    
 };
@@ -33,14 +35,15 @@ exports.getHostHomes = (req, res, next) => {
       registeredHomes: registeredHomes,
       pageTitle: "Host Homes List",
       currentPage: "host-homes",
-      isLoggedIn:req.isLoggedIn
+      isLoggedIn:req.isLoggedIn,
+      user: req.session.user,
     })
   });
 };
 
 exports.postAddHome = (req, res, next) => {
-  const { houseName, price, location, rating, photoUrl } = req.body;
-  const home = new Home({houseName, price, location, rating, photoUrl});
+  const { houseName, price, location, rating, photoUrl,description } = req.body;
+  const home = new Home({houseName, price, location, rating, photoUrl,description});
   home.save().then(()=>{
     console.log('Home saved succesfully')
   });

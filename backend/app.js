@@ -43,13 +43,13 @@ app.use("/host",(req,res,next)=>{
   if(req.isLoggedIn){
     next();
   }
-  res.redirect("/login");
+  else {res.redirect("/login");}
 })
 app.use("/host", hostRouter);
 
 app.use(errorcontroller.pageNotFound)
 
-const PORT=3000;
+const PORT=5000;
 
 mongoose.connect(DB_PATH).then(()=>{
     console.log('mongoose connected')

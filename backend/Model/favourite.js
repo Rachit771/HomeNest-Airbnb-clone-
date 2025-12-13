@@ -7,4 +7,4 @@ const favouriteSchema=mongoose.Schema({
     unique:true
   }
 })
-module.exports=mongoose.model('Favourite',favouriteSchema)
+module.exports=mongoose.model('Favourite',favouriteSchema);
