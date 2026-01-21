@@ -5,7 +5,7 @@ exports.getIndex = (req, res) => {
   // Not logged in → show landing page
   if (!req.isLoggedIn) {
     return res.render("store/index", {
-      registeredHomes: [],
+      registeredHomes:[],
       pageTitle: "airbnb Home",
       currentPage: "index",
       isLoggedIn: false,
