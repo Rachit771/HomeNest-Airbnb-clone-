@@ -72,10 +72,19 @@ app.use("/Book",bookingRouter);
 app.use("/host", hostRouter);
 
 app.use(errorcontroller.pageNotFound);
+console.log("App starting");
+
+console.log("Connecting Redis...");
+redis.on("connect", () => console.log("Redis connected"));
+redis.on("error", (err) => console.log("Redis Error:", err));
 
 const PORT = process.env.PORT || 5000;
 (async () => {
+  console.log("Connecting Mongo...");
   await connectDB();
+  console.log("Mongo connected");
+
+console.log("Starting server...");
   app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
   });
