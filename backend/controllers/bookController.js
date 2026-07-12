@@ -17,7 +17,8 @@ exports.getBookingPage = async (req, res) => {
       user: req.session.user,
     });
 
-  } catch (err) {
+  } catch (err) {  
+    
     res.status(500).render("404");
   }
 };
@@ -127,7 +128,7 @@ exports.getPaymentPage = async (req, res) => {
       return res.status(403).render("404");
     }
     if (booking.status !== "PAYMENT_PENDING") {
-        return res.redirect("/bookings");
+        return res.redirect("Book/bookings");
     }
 
     res.render("booking/payment", {
